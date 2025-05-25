@@ -2,9 +2,16 @@ import css from "./Contact.module.css";
 import { IoMdContact } from "react-icons/io";
 import { MdLocalPhone } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
 
-export default function Contact({ data: { id, name, number }, onDelete }) {
+export default function Contact({ data: { id, name, number } }) {
   const link = `tel:${number}`;
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteContact(id));
+  };
 
   return (
     <>
@@ -20,7 +27,7 @@ export default function Contact({ data: { id, name, number }, onDelete }) {
           </a>
         </div>
       </div>
-      <button className={css.button} type="button" onClick={() => onDelete(id)}>
+      <button className={css.button} type="button" onClick={handleDelete}>
         <MdDelete size={25} />
       </button>
     </>
